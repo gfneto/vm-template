@@ -1,0 +1,27 @@
+#cloud-config
+# vim: syntax=yaml
+# examples:
+# https://cloudinit.readthedocs.io/en/latest/topics/examples.html
+bootcmd:
+  - echo 192.168.1.104 controlnode01 >> /etc/hosts
+runcmd:
+ - [ ls, -l, / ]
+ - [ sh, -xc, "echo $(date) ': hello world!'" ]
+ssh_pwauth: true
+disable_root: false
+chpasswd:
+  list: |
+     root:password
+  expire: false
+users:
+  - name: ursula
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    groups: users, admin
+    home: /home/ursula
+    shell: /bin/bash
+    lock_passwd: false
+    ssh-authorized-keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEyNJmsAfETwrwpnPswGYHXJ0x1+KuK9zPEAMbS+ShrN geraldofiorini@gmail.com
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFcvKKIJAEBT+ylagDe6WGHsLvWiCkpnFJwRaN4LbmUd tonhera@controlnode01
+final_message: "The system is finally up, after $UPTIME seconds"
+

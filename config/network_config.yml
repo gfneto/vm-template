@@ -1,0 +1,13 @@
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    ens3:
+      addresses:
+        - 192.168.1.20X/24
+      gateway4: 192.168.1.254
+      nameservers:
+        addresses:
+          - 192.168.1.254
+      dhcp6: false
+      dhcp4: false
